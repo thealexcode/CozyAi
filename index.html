@@ -8,16 +8,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/home.css">
+    <style>
+        /* Custom logo styling */
+        .logo-img {
+            height: 38px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .header .logo-img {
+            height: 40px;
+        }
+        .footer .logo-img {
+            height: 34px;
+        }
+        
+        /* Copyright protection styles */
+        .copy-warning {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: fadeInOut 2s ease-in-out;
+            transform: translate(-50%, -120%);
+            max-width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #8D5BFF;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -100%); }
+            20% { opacity: 1; transform: translate(-50%, -120%); }
+            80% { opacity: 1; transform: translate(-50%, -120%); }
+            100% { opacity: 0; transform: translate(-50%, -100%); }
+        }
+        
+        /* Selection color */
+        ::selection {
+            background: rgba(108, 77, 246, 0.2);
+            color: inherit;
+        }
+    </style>
 </head>
 <body>
+    <!-- Copyright warning element -->
+    <div id="copyWarning" class="copy-warning">
+        ⚠️ Warning Content is protected
+    </div>
+
     <header class="header">
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <span>Cozy AI</span>
+                    <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
                 </div>
                 <button class="btn btn-gradient" id="get-started-btn">
                     <span>Get Started</span>
@@ -26,6 +78,7 @@
             </nav>
         </div>
     </header>
+
 
     <main>
         <section class="hero">
@@ -58,22 +111,22 @@
                     <div class="chat-preview">
                         <div class="message bot">
                             <div class="message-header">
-                                <span class="sender">Cozy AI</span>
-                                <span class="time">Just now</span>
+                                <span class="sender" style="color: white;">Cozy AI</span>
+                                <span class="time" style="color: white;">Just now</span>
                             </div>
                             <div class="message-content">Hello! I'm your premium AI assistant. How may I elevate your productivity today?</div>
                         </div>
                         <div class="message user">
                             <div class="message-header">
-                                <span class="sender">You</span>
-                                <span class="time">Just now</span>
+                                <span class="sender" style="color: white;">You</span>
+                                <span class="time" style="color: white;">Just now</span>
                             </div>
                             <div class="message-content">What makes you different from other AI assistants?</div>
                         </div>
                         <div class="message bot">
                             <div class="message-header">
-                                <span class="sender">Cozy AI</span>
-                                <span class="time">Just now</span>
+                                <span class="sender"style="color: white;">Cozy AI</span>
+                                <span class="time"style="color: white;">Just now</span>
                             </div>
                             <div class="message-content">I offer elegant, nuanced responses with premium knowledge, contextual understanding, and a personalized touch that feels genuinely human.</div>
                         </div>
@@ -207,10 +260,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <span>Cozy AI</span>
+                        <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
                     </div>
                     <p>The premium AI experience</p>
                     <div class="social-links">
@@ -238,14 +288,77 @@
                         <a href="terms.html">Terms of Service</a>
                         <a href="contact.html">Contact Us</a>
                     </div>
+                    
+                    <br /> 
+<a href="//www.dmca.com/Protection/Status.aspx?ID=aa2591ea-2129-411e-b8f4-3363e656f71e" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w150-5x1-09.png?ID=aa2591ea-2129-411e-b8f4-3363e656f71e"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
                 </div>
+                
+                
             </div>
+            
             <div class="footer-copyright">
                 <p>&copy; 2025 Cozy AI. All rights reserved. Crafted with <i class="fas fa-heart"></i> by JISAN</p>
             </div>
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
     </footer>
 
     <script src="assets/js/home.js"></script>
+    <!-- Copyright Protection Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyWarning = document.getElementById('copyWarning');
+            
+            // Show warning when text is selected/copied
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showCopyWarning(e);
+            });
+            
+            document.addEventListener('selectionchange', function() {
+                const selection = window.getSelection();
+                if (selection.toString().length > 0) {
+                    showCopyWarning({ clientX: 0, clientY: 0 });
+                }
+            });
+            
+            function showCopyWarning(event) {
+                // Position the warning near cursor
+                const x = event.clientX || window.innerWidth/2;
+                const y = event.clientY || 100;
+                
+                copyWarning.style.left = x + 'px';
+                copyWarning.style.top = y + 'px';
+                copyWarning.style.opacity = 0;
+                
+                // Trigger animation
+                setTimeout(() => {
+                    copyWarning.style.animation = 'none';
+                    void copyWarning.offsetWidth; // Trigger reflow
+                    copyWarning.style.animation = 'fadeInOut 2s ease-in-out';
+                }, 10);
+            }
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
