@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
     <style>
         /* Custom logo styling */
         .logo-img {
@@ -57,6 +58,93 @@
             background: rgba(108, 77, 246, 0.2);
             color: inherit;
         }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-body .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .modal-body .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background-color: var(--card-bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .modal-body .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(108, 77, 246, 0.2);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -65,20 +153,90 @@
         ⚠️ Warning Content is protected
     </div>
 
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
-                </div>
+<!-- In the header section -->
+<header class="header">
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
+            </div>
+            <div id="auth-buttons">
                 <button class="btn btn-gradient" id="get-started-btn">
                     <span>Get Started</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
+            </div>
+            <div id="profile-section" class="profile-dropdown" style="display: none;">
+                <button class="profile-btn" id="profile-btn">
+                    <div class="profile-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </button>
+                    <div class="profile-menu">
+                        <div class="profile-header">
+                            <div class="profile-img" id="profile-header-img">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <div class="profile-name" id="profile-name">User Name</div>
+                                <div class="profile-email" id="profile-email">user@example.com</div>
+                            </div>
+                        </div>
+                        <div class="profile-divider"></div>
+                        <a href="#" class="profile-menu-item">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="profile-menu-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="profile-menu-item" id="change-password-btn">
+                            <i class="fas fa-key"></i>
+                            <span>Change Password</span>
+                        </a>
+                        <div class="profile-divider"></div>
+                        <a href="#" class="profile-menu-item" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
+
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-btn" id="close-password-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="current-password">Current Password</label>
+                    <input type="password" id="current-password" class="form-input" placeholder="Enter current password">
+                    <div id="current-password-error" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" class="form-input" placeholder="Enter new password">
+                    <div id="new-password-error" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm New Password</label>
+                    <input type="password" id="confirm-password" class="form-input" placeholder="Confirm new password">
+                    <div id="confirm-password-error" class="error-message"></div>
+                </div>
+                <button class="btn btn-primary" id="update-password-btn">
+                    <span>Update Password</span>
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <section class="hero">
@@ -290,33 +448,205 @@
                     </div>
                     
                     <br /> 
-<a href="//www.dmca.com/Protection/Status.aspx?ID=aa2591ea-2129-411e-b8f4-3363e656f71e" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w150-5x1-09.png?ID=aa2591ea-2129-411e-b8f4-3363e656f71e"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+                    <a href="//www.dmca.com/Protection/Status.aspx?ID=aa2591ea-2129-411e-b8f4-3363e656f71e" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca-badge-w150-5x1-09.png?ID=aa2591ea-2129-411e-b8f4-3363e656f71e"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
                 </div>
-                
-                
             </div>
             
             <div class="footer-copyright">
                 <p>&copy; 2025 Cozy AI. All rights reserved. Crafted with <i class="fas fa-heart"></i> by JISAN</p>
             </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
     </footer>
 
+    <script src="assets/js/firebase.js"></script>
     <script src="assets/js/home.js"></script>
-    <!-- Copyright Protection Script -->
     <script>
+        // Initialize Firebase auth
+        const auth = window.auth;
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Profile dropdown toggle
+            const profileDropdown = document.getElementById('profile-section');
+            const profileBtn = document.getElementById('profile-btn');
+            
+            if (profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    profileDropdown.classList.toggle('active');
+                });
+            }
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                if (profileDropdown.classList.contains('active')) {
+                    profileDropdown.classList.remove('active');
+                }
+            });
+            
+            // Check auth state
+            auth.onAuthStateChanged(user => {
+                const authButtons = document.getElementById('auth-buttons');
+                const profileSection = document.getElementById('profile-section');
+                const getStartedBtn = document.getElementById('get-started-btn');
+                const ctaBtn = document.getElementById('cta-btn');
+                
+                if (user) {
+                    // User is logged in
+                    authButtons.style.display = 'none';
+                    profileSection.style.display = 'block';
+                    
+                    // Update profile info
+                    const profileName = document.getElementById('profile-name');
+                    const profileEmail = document.getElementById('profile-email');
+                    
+                    // Extract first letter for profile image
+                    const firstLetter = user.email ? user.email.charAt(0).toUpperCase() : 'U';
+                    document.getElementById('profile-header-img').textContent = firstLetter;
+                    document.querySelector('.profile-img').textContent = firstLetter;
+                    
+                    // Set name and email
+                    profileName.textContent = user.displayName || user.email.split('@')[0];
+                    profileEmail.textContent = user.email;
+                    
+                    // Update buttons to go to chat
+                    if (getStartedBtn) {
+                        getStartedBtn.innerHTML = '<span>Go to Chat</span><i class="fas fa-comment-dots"></i>';
+                        getStartedBtn.addEventListener('click', () => {
+                            window.location.href = 'chatbot.html';
+                        });
+                    }
+                    if (ctaBtn) {
+                        ctaBtn.innerHTML = '<span>Go to Chat</span><i class="fas fa-comment-dots"></i>';
+                        ctaBtn.addEventListener('click', () => {
+                            window.location.href = 'chatbot.html';
+                        });
+                    }
+                    
+                    // Logout button
+                    const logoutBtn = document.getElementById('logout-btn');
+                    if (logoutBtn) {
+                        logoutBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            auth.signOut().then(() => {
+                                window.location.reload();
+                            });
+                        });
+                    }
+                    
+                    // Change password modal
+                    const changePasswordBtn = document.getElementById('change-password-btn');
+                    const changePasswordModal = document.getElementById('change-password-modal');
+                    const closePasswordModal = document.getElementById('close-password-modal');
+                    const updatePasswordBtn = document.getElementById('update-password-btn');
+                    
+                    if (changePasswordBtn) {
+                        changePasswordBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            changePasswordModal.style.display = 'flex';
+                            profileDropdown.classList.remove('active');
+                        });
+                    }
+                    
+                    if (closePasswordModal) {
+                        closePasswordModal.addEventListener('click', function() {
+                            changePasswordModal.style.display = 'none';
+                        });
+                    }
+                    
+                    if (updatePasswordBtn) {
+                        updatePasswordBtn.addEventListener('click', function() {
+                            const currentPassword = document.getElementById('current-password').value;
+                            const newPassword = document.getElementById('new-password').value;
+                            const confirmPassword = document.getElementById('confirm-password').value;
+                            
+                            // Clear errors
+                            document.getElementById('current-password-error').textContent = '';
+                            document.getElementById('new-password-error').textContent = '';
+                            document.getElementById('confirm-password-error').textContent = '';
+                            
+                            // Validate
+                            if (!currentPassword) {
+                                document.getElementById('current-password-error').textContent = 'Current password is required';
+                                return;
+                            }
+                            
+                            if (!newPassword) {
+                                document.getElementById('new-password-error').textContent = 'New password is required';
+                                return;
+                            }
+                            
+                            if (newPassword.length < 6) {
+                                document.getElementById('new-password-error').textContent = 'Password must be at least 6 characters';
+                                return;
+                            }
+                            
+                            if (newPassword !== confirmPassword) {
+                                document.getElementById('confirm-password-error').textContent = 'Passwords do not match';
+                                return;
+                            }
+                            
+                            // Reauthenticate and update password
+                            const credential = firebase.auth.EmailAuthProvider.credential(
+                                user.email, 
+                                currentPassword
+                            );
+                            
+                            updatePasswordBtn.disabled = true;
+                            updatePasswordBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+                            
+                            user.reauthenticateWithCredential(credential)
+                                .then(() => {
+                                    return user.updatePassword(newPassword);
+                                })
+                                .then(() => {
+                                    alert('Password updated successfully!');
+                                    changePasswordModal.style.display = 'none';
+                                    document.getElementById('current-password').value = '';
+                                    document.getElementById('new-password').value = '';
+                                    document.getElementById('confirm-password').value = '';
+                                })
+                                .catch(error => {
+                                    console.error('Error updating password:', error);
+                                    if (error.code === 'auth/wrong-password') {
+                                        document.getElementById('current-password-error').textContent = 'Incorrect password';
+                                    } else {
+                                        document.getElementById('current-password-error').textContent = 'Error updating password. Please try again.';
+                                    }
+                                })
+                                .finally(() => {
+                                    updatePasswordBtn.disabled = false;
+                                    updatePasswordBtn.innerHTML = '<span>Update Password</span><i class="fas fa-save"></i>';
+                                });
+                        });
+                    }
+                    
+                } else {
+                    // User is not logged in
+                    authButtons.style.display = 'block';
+                    profileSection.style.display = 'none';
+                    
+                    // Set buttons to go to auth
+                    const getStartedBtn = document.getElementById('get-started-btn');
+                    const ctaBtn = document.getElementById('cta-btn');
+                    
+                    if (getStartedBtn) {
+                        getStartedBtn.innerHTML = '<span>Get Started</span><i class="fas fa-arrow-right"></i>';
+                        getStartedBtn.addEventListener('click', () => {
+                            window.location.href = 'auth.html';
+                        });
+                    }
+                    if (ctaBtn) {
+                        ctaBtn.innerHTML = '<span>Try Cozy AI Now</span><i class="fas fa-sparkles"></i>';
+                        ctaBtn.addEventListener('click', () => {
+                            window.location.href = 'auth.html';
+                        });
+                    }
+                }
+            });
+            
+            // Copyright protection script
             const copyWarning = document.getElementById('copyWarning');
             
-            // Show warning when text is selected/copied
             document.addEventListener('copy', function(e) {
                 e.preventDefault();
                 showCopyWarning(e);
@@ -330,7 +660,6 @@
             });
             
             function showCopyWarning(event) {
-                // Position the warning near cursor
                 const x = event.clientX || window.innerWidth/2;
                 const y = event.clientY || 100;
                 
@@ -338,10 +667,9 @@
                 copyWarning.style.top = y + 'px';
                 copyWarning.style.opacity = 0;
                 
-                // Trigger animation
                 setTimeout(() => {
                     copyWarning.style.animation = 'none';
-                    void copyWarning.offsetWidth; // Trigger reflow
+                    void copyWarning.offsetWidth;
                     copyWarning.style.animation = 'fadeInOut 2s ease-in-out';
                 }, 10);
             }
@@ -349,16 +677,5 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
