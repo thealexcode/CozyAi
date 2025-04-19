@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy AI - Your Intelligent Assistant</title>
+    <title>Cozy AI - Premium Intelligent Assistant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -14,10 +14,15 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <i class="fas fa-robot"></i>
+                    <div class="logo-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
                     <span>Cozy AI</span>
                 </div>
-                <button class="btn btn-outline" id="get-started-btn">Get Started</button>
+                <button class="btn btn-gradient" id="get-started-btn">
+                    <span>Get Started</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </nav>
         </div>
     </header>
@@ -26,15 +31,52 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Your Intelligent Assistant Created by JISAN </h1>
-                    <p class="subtitle">Cozy AI helps you with tasks, answers questions, and provides insights with a premium, professional touch.</p>
-                    <button class="btn btn-primary" id="cta-btn">Try Cozy AI Now</button>
+                    <h1><span class="highlight">Premium AI Assistant</span> Crafted by JISAN</h1>
+                    <p class="subtitle">Experience next-generation artificial intelligence with elegant, human-like conversations and enterprise-grade capabilities.</p>
+                    <div class="cta-group">
+                        <button class="btn btn-primary" id="cta-btn">
+                            <span>Try Cozy AI Now</span>
+                            <i class="fas fa-sparkles"></i>
+                        </button>
+                        <div class="trust-badges">
+                            <div class="badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Secure</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-bolt"></i>
+                                <span>Fast</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-infinity"></i>
+                                <span>Powerful</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="hero-image">
                     <div class="chat-preview">
-                        <div class="message bot">Hi there! I'm Cozy AI. How can I assist you today?</div>
-                        <div class="message user">What can you do?</div>
-                        <div class="message bot">I can answer questions, help with research, summarize content, generate ideas, and much more!</div>
+                        <div class="message bot">
+                            <div class="message-header">
+                                <span class="sender">Cozy AI</span>
+                                <span class="time">Just now</span>
+                            </div>
+                            <div class="message-content">Hello! I'm your premium AI assistant. How may I elevate your productivity today?</div>
+                        </div>
+                        <div class="message user">
+                            <div class="message-header">
+                                <span class="sender">You</span>
+                                <span class="time">Just now</span>
+                            </div>
+                            <div class="message-content">What makes you different from other AI assistants?</div>
+                        </div>
+                        <div class="message bot">
+                            <div class="message-header">
+                                <span class="sender">Cozy AI</span>
+                                <span class="time">Just now</span>
+                            </div>
+                            <div class="message-content">I offer elegant, nuanced responses with premium knowledge, contextual understanding, and a personalized touch that feels genuinely human.</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,28 +84,37 @@
 
         <section class="features">
             <div class="container">
-                <h2>Why Choose Cozy AI</h2>
+                <div class="section-header">
+                    <h2>Why Professionals Choose Cozy AI</h2>
+                    <p class="section-subtitle">Enterprise-grade AI with an elegant interface</p>
+                </div>
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">
+                            <div class="icon-bg"></div>
                             <i class="fas fa-bolt"></i>
                         </div>
-                        <h3>Instant Responses</h3>
-                        <p>Get accurate answers to your questions in seconds with our powerful AI technology.</p>
+                        <h3>Lightning Fast</h3>
+                        <p>Sub-second response times with our optimized AI architecture.</p>
+                        <a href="#" class="feature-link">Learn more <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
+                            <div class="icon-bg"></div>
+                            <i class="fas fa-brain"></i>
                         </div>
-                        <h3>Mobile Optimized</h3>
-                        <p>Designed specifically for mobile use with concise, readable responses.</p>
+                        <h3>Advanced Intelligence</h3>
+                        <p>Deep contextual understanding for complex problem solving.</p>
+                        <a href="#" class="feature-link">Learn more <i class="fas fa-chevron-right"></i></a>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
+                            <div class="icon-bg"></div>
+                            <i class="fas fa-fingerprint"></i>
                         </div>
-                        <h3>Secure & Private</h3>
-                        <p>Your conversations are protected with enterprise-grade security.</p>
+                        <h3>Privacy Focused</h3>
+                        <p>End-to-end encrypted conversations with zero data retention.</p>
+                        <a href="#" class="feature-link">Learn more <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -71,27 +122,80 @@
 
         <section class="use-cases">
             <div class="container">
-                <h2>What You Can Do With Cozy AI</h2>
+                <div class="section-header">
+                    <h2>Transform Your Workflow</h2>
+                    <p class="section-subtitle">Premium AI for professionals and creators</p>
+                </div>
                 <div class="use-cases-grid">
                     <div class="use-case">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Brainstorm Ideas</h3>
-                        <p>Get creative suggestions for projects, names, or content.</p>
+                        <div class="use-case-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Creative Ideation</h3>
+                        <p>Generate innovative concepts and strategic insights.</p>
+                        <div class="case-stats">
+                            <span><i class="fas fa-check"></i> 92% more ideas</span>
+                            <span><i class="fas fa-clock"></i> 5x faster</span>
+                        </div>
                     </div>
                     <div class="use-case">
-                        <i class="fas fa-book"></i>
-                        <h3>Research Assistant</h3>
-                        <p>Quick summaries and explanations of complex topics.</p>
+                        <div class="use-case-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data Analysis</h3>
+                        <p>Extract insights from complex datasets instantly.</p>
+                        <div class="case-stats">
+                            <span><i class="fas fa-check"></i> 87% accuracy</span>
+                            <span><i class="fas fa-clock"></i> Real-time</span>
+                        </div>
                     </div>
                     <div class="use-case">
-                        <i class="fas fa-code"></i>
-                        <h3>Code Help</h3>
-                        <p>Get programming assistance and debugging tips.</p>
+                        <div class="use-case-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Development</h3>
+                        <p>Write, debug, and optimize code in any language.</p>
+                        <div class="case-stats">
+                            <span><i class="fas fa-check"></i> 40% less bugs</span>
+                            <span><i class="fas fa-clock"></i> 3x faster</span>
+                        </div>
                     </div>
-                    <div class="use-case">
-                        <i class="fas fa-pen-fancy"></i>
-                        <h3>Writing Assistant</h3>
-                        <p>Improve your writing with suggestions and edits.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Trusted by Professionals</h2>
+                    <p class="section-subtitle">What our users say about Cozy AI</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>Cozy AI has transformed how I work. The responses are so nuanced and human-like, it's like having a brilliant assistant available 24/7.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah K.">
+                            <div>
+                                <h4>Sarah K.</h4>
+                                <p>Product Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>As a developer, I'm blown away by the code quality. It understands context better than any other AI I've used.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David T.">
+                            <div>
+                                <h4>David T.</h4>
+                                <p>Senior Developer</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,19 +207,41 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="logo">
-                        <i class="fas fa-robot"></i>
+                        <div class="logo-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
                         <span>Cozy AI</span>
                     </div>
-                    <p>Your Intelligent Assistant</p>
+                    <p>The premium AI experience</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
-              <div class="footer-links">
-       <a href="privacy.html">Privacy Policy</a>
-       <a href="terms.html">Terms of Service</a>
-       <a href="contact.html">Contact Us</a>
-   </div>
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h4>Product</h4>
+                        <a href="#">Features</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">API</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Tutorials</a>
+                    </div>
+                    <div class="links-column">
+                        <h4>Legal</h4>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
             </div>
             <div class="footer-copyright">
-                <p>&copy;2025 Cozy AI. All rights reserved. Created By JISAN ❤️</p>
+                <p>&copy; 2025 Cozy AI. All rights reserved. Crafted with <i class="fas fa-heart"></i> by JISAN</p>
             </div>
         </div>
     </footer>
