@@ -8,8 +8,100 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/chat.css">
+    <style>
+        /* Custom logo styling */
+        .logo-img {
+            height: 38px;
+            width: auto;
+            transition: all 0.3s ease;
+        }
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .header .logo-img {
+            height: 40px;
+        }
+        
+        /* Copyright protection styles */
+        .copy-warning {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: fadeInOut 2s ease-in-out;
+            transform: translate(-50%, -120%);
+            max-width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #8D5BFF;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -100%); }
+            20% { opacity: 1; transform: translate(-50%, -120%); }
+            80% { opacity: 1; transform: translate(-50%, -120%); }
+            100% { opacity: 0; transform: translate(-50%, -100%); }
+        }
+        
+        /* Selection color */
+        ::selection {
+            background: rgba(108, 77, 246, 0.2);
+            color: inherit;
+        }
+
+        /* Welcome screen styles */
+        .welcome-screen .logo {
+            background: linear-gradient(135deg, #6C4DF6, #8E7BFF);
+            box-shadow: 0 4px 20px -5px rgba(108, 77, 246, 0.3);
+        }
+        
+        .welcome-screen h1 {
+            color: #6C4DF6;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6C4DF6, #8E7BFF);
+            box-shadow: 0 4px 15px -3px rgba(108, 77, 246, 0.3);
+        }
+
+        /* Chat specific styles */
+        .chat-header {
+            background: linear-gradient(135deg, #6C4DF6, #8E7BFF);
+            color: white;
+        }
+        
+        .header-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .bot-message {
+            background-color: #e0e7ff;
+            color: #1E293B;
+        }
+        
+        .user-message {
+            background-color: #6C4DF6;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+    <!-- Copyright warning element -->
+    <div id="copyWarning" class="copy-warning">
+        ⚠️ Warning Content is protected
+    </div>
+
     <!-- Welcome Screen -->
     <div class="welcome-screen" id="welcome-screen">
         <div class="logo">
@@ -25,13 +117,13 @@
     <!-- Chat Interface -->
     <div class="chat-container" id="chat-container">
         <div class="chat-header">
-            <h2><i class="fas fa-robot"></i> Cozy AI</h2>
+            <div class="logo">
+                <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
+                
+            </div>
             <div class="chat-header-actions">
                 <button class="header-btn" id="logout-button">
                     <i class="fas fa-sign-out-alt"></i>
-                </button>
-                <button class="header-btn" id="dark-mode-btn">
-                    <i class="fas fa-moon"></i>
                 </button>
             </div>
         </div>
@@ -52,5 +144,38 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script src="assets/js/firebase.js"></script>
     <script src="assets/js/chat.js"></script>
+    <script>
+        // Copyright protection script
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyWarning = document.getElementById('copyWarning');
+            
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showCopyWarning(e);
+            });
+            
+            document.addEventListener('selectionchange', function() {
+                const selection = window.getSelection();
+                if (selection.toString().length > 0) {
+                    showCopyWarning({ clientX: 0, clientY: 0 });
+                }
+            });
+            
+            function showCopyWarning(event) {
+                const x = event.clientX || window.innerWidth/2;
+                const y = event.clientY || 100;
+                
+                copyWarning.style.left = x + 'px';
+                copyWarning.style.top = y + 'px';
+                copyWarning.style.opacity = 0;
+                
+                setTimeout(() => {
+                    copyWarning.style.animation = 'none';
+                    void copyWarning.offsetWidth;
+                    copyWarning.style.animation = 'fadeInOut 2s ease-in-out';
+                }, 10);
+            }
+        });
+    </script>
 </body>
 </html>
