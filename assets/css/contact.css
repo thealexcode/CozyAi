@@ -1,0 +1,66 @@
+.legal-container, .contact-container {
+    padding: 4rem 0;
+    line-height: 1.6;
+}
+
+.legal-container h1 {
+    margin-bottom: 1rem;
+}
+
+.legal-container h2 {
+    margin: 2rem 0 1rem;
+    color: var(--primary);
+}
+
+.last-updated {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.contact-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.contact-card i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 3rem auto;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}

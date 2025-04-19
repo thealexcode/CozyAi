@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head as privacy.html -->
+    <title>Contact Us - Cozy AI</title>
+    <link rel="stylesheet" href="assets/css/contact.css">
+</head>
+<body>
+    <!-- Same header as privacy.html -->
+    
+    <main class="contact-container">
+        <div class="container">
+            <h1>Contact Cozy AI</h1>
+            <p>Have questions or feedback? We'd love to hear from you!</p>
+            
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>For general inquiries:</p>
+                    <a href="mailto:support@cozyai.example">support@cozyai.example</a>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Report a Bug</h3>
+                    <p>Found an issue?</p>
+                    <a href="mailto:bugs@cozyai.example">bugs@cozyai.example</a>
+                </div>
+                
+                <div class="contact-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Privacy Concerns</h3>
+                    <p>For privacy-related questions:</p>
+                    <a href="mailto:privacy@cozyai.example">privacy@cozyai.example</a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Same footer as privacy.html -->
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will respond soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
