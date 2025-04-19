@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 { 
                     role: "model", 
                     parts: [{ 
-                        text: "Understood! I'm Cozy AI, your helpful assistant. I'll provide concise, professional responses tailored for mobile. How may I assist you today?" 
+                        text: "Hello Sir I'm Cozy AI, your helpful assistant. I'll provide concise, professional responses tailored for mobile. How may I assist you today?" 
                     }] 
                 }
             ];
