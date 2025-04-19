@@ -9,17 +9,34 @@ const firebaseConfig = {
     measurementId: "G-99CGTGGJKG"
 };
 
-try {
-    // Initialize Firebase only once
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+if (typeof firebase === 'undefined') {
+    console.error('Firebase SDK not loaded');
+} else {
+    try {
+        // Initialize only if no apps exist
+        if (firebase.apps.length === 0) {
+            firebase.initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+        }
+        
+        // Set auth and provider globally
+        window.auth = firebase.auth();
+        window.provider = new firebase.auth.GoogleAuthProvider();
+        
+        // Add persistence
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(() => {
+                console.log("Auth persistence set to LOCAL");
+            })
+            .catch((error) => {
+                console.error("Error setting auth persistence:", error);
+            });
+            
+        // Verify initialization
+        console.log("Firebase auth available:", !!window.auth);
+        
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
     }
-
-    // Make these available globally
-    window.auth = firebase.auth();
-    window.provider = new firebase.auth.GoogleAuthProvider();
-    
-    console.log("Firebase initialized successfully");
-} catch (error) {
-    console.error("Firebase initialization error:", error);
 }

@@ -675,6 +675,108 @@
             }
         });
     </script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // First check if Firebase auth is available
+        if (!window.auth) {
+            console.error('Firebase auth not available');
+            return;
+        }
+
+        // Debug: Check initial auth state
+        console.log('Initial auth state:', auth.currentUser);
+        
+        // Handle auth state changes
+        auth.onAuthStateChanged(function(user) {
+            console.log('Auth state changed:', user);
+            
+            const authButtons = document.getElementById('auth-buttons');
+            const profileSection = document.getElementById('profile-section');
+            
+            if (user) {
+                console.log('User logged in:', user.email);
+                
+                // Show profile, hide auth buttons
+                if (authButtons) authButtons.style.display = 'none';
+                if (profileSection) {
+                    profileSection.style.display = 'block';
+                    
+                    // Update profile info
+                    const firstLetter = user.email ? user.email.charAt(0).toUpperCase() : 'U';
+                    const profileImg = profileSection.querySelector('.profile-img');
+                    if (profileImg) profileImg.textContent = firstLetter;
+                    
+                    const profileName = document.getElementById('profile-name');
+                    if (profileName) profileName.textContent = user.displayName || user.email.split('@')[0];
+                    
+                    const profileEmail = document.getElementById('profile-email');
+                    if (profileEmail) profileEmail.textContent = user.email;
+                }
+                
+                // Update buttons to go to chat
+                const getStartedBtn = document.getElementById('get-started-btn');
+                const ctaBtn = document.getElementById('cta-btn');
+                
+                if (getStartedBtn) {
+                    getStartedBtn.innerHTML = '<span>Go to Chat</span><i class="fas fa-comment-dots"></i>';
+                    getStartedBtn.onclick = function() {
+                        window.location.href = 'chatbot.html';
+                    };
+                }
+                if (ctaBtn) {
+                    ctaBtn.innerHTML = '<span>Go to Chat</span><i class="fas fa-comment-dots"></i>';
+                    ctaBtn.onclick = function() {
+                        window.location.href = 'chatbot.html';
+                    };
+                }
+            } else {
+                console.log('No user logged in');
+                
+                // Show auth buttons, hide profile
+                if (authButtons) authButtons.style.display = 'block';
+                if (profileSection) profileSection.style.display = 'none';
+                
+                // Set buttons to go to auth
+                const getStartedBtn = document.getElementById('get-started-btn');
+                const ctaBtn = document.getElementById('cta-btn');
+                
+                if (getStartedBtn) {
+                    getStartedBtn.innerHTML = '<span>Get Started</span><i class="fas fa-arrow-right"></i>';
+                    getStartedBtn.onclick = function() {
+                        window.location.href = 'auth.html';
+                    };
+                }
+                if (ctaBtn) {
+                    ctaBtn.innerHTML = '<span>Try Cozy AI Now</span><i class="fas fa-sparkles"></i>';
+                    ctaBtn.onclick = function() {
+                        window.location.href = 'auth.html';
+                    };
+                }
+            }
+        });
+        
+        // Profile dropdown toggle
+        const profileDropdown = document.getElementById('profile-section');
+        const profileBtn = document.getElementById('profile-btn');
+        
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            const profileDropdown = document.getElementById('profile-section');
+            if (profileDropdown && profileDropdown.classList.contains('active')) {
+                profileDropdown.classList.remove('active');
+            }
+        });
+    });
+</script>
+    
 </body>
 </html>
 
