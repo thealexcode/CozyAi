@@ -3,85 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cozy AI - Sign In</title>
+    <title>Cozy AI - Authentication</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/auth.css">
+    <style>
+        :root {
+            --primary: #6C4DF6;
+            --primary-light: #8E7BFF;
+            --primary-dark: #4D36D1;
+            --background: #F8FAFF;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --error: #EF4444;
+        }
+        
+        body {
+            background-color: var(--background);
+            background-image: radial-gradient(circle at 10% 20%, rgba(108, 77, 246, 0.05) 0%, transparent 20%);
+        }
+        
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .copy-warning {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: fadeInOut 2s ease-in-out;
+            transform: translate(-50%, -120%);
+            max-width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #8D5BFF;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -100%); }
+            20% { opacity: 1; transform: translate(-50%, -120%); }
+            80% { opacity: 1; transform: translate(-50%, -120%); }
+            100% { opacity: 0; transform: translate(-50%, -100%); }
+        }
+    </style>
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-header">
-            <div class="logo">
-                <i class="fas fa-robot"></i>
-                <span>Cozy AI</span>
-            </div>
-            <p>Your intelligent assistant powered by Gemini</p>
-        </div>
-
-        <div class="auth-tabs">
-            <button class="auth-tab active" id="login-tab">Sign In</button>
-            <button class="auth-tab" id="signup-tab">Sign Up</button>
-        </div>
-
-        <div class="auth-content">
-            <!-- Login Form -->
-            <div class="auth-form active" id="login-form">
-                <button class="btn btn-outline btn-google" id="google-login-btn">
-                    <i class="fab fa-google"></i> Continue with Google
-                </button>
-                
-                <div class="divider">
-                    <span>or</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="login-email" class="form-label">Email</label>
-                    <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>
-                    <div class="error-message" id="login-email-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="login-password" class="form-label">Password</label>
-                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
-                    <div class="error-message" id="login-password-error"></div>
-                </div>
-                
-                <button class="btn btn-primary" id="login-button">Sign In</button>
-                <button class="auth-toggle" id="show-signup">Don't have an account? Sign Up</button>
-            </div>
-
-            <!-- Signup Form -->
-            <div class="auth-form" id="signup-form">
-                <div class="form-group">
-                    <label for="signup-email" class="form-label">Email</label>
-                    <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
-                    <div class="error-message" id="signup-email-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-password" class="form-label">Password</label>
-                    <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
-                    <div class="error-message" id="signup-password-error"></div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-confirm-password" class="form-label">Confirm Password</label>
-                    <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm your password" required>
-                    <div class="error-message" id="signup-confirm-error"></div>
-                </div>
-                
-                <button class="btn btn-primary" id="signup-button">Sign Up</button>
-                <button class="auth-toggle" id="show-login">Already have an account? Sign In</button>
-            </div>
-        </div>
+    <!-- Copyright warning element -->
+    <div id="copyWarning" class="copy-warning">
+        ⚠️ Content is protected
     </div>
 
-<!-- At the bottom of your <body> -->
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-<script src="assets/js/firebase.js"></script>
-<script src="assets/js/auth.js"></script>  <!-- or chat.js for chatbot.html -->
+    <div class="auth-wrapper">
+        <header class="auth-header">
+            <div class="container">
+                <nav class="navbar">
+                    <div class="logo">
+                        <img src="assets/images/cozyai.png" alt="Cozy AI" class="logo-img">
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main class="auth-main">
+            <div class="auth-container">
+                <div class="auth-header-content">
+                    <h1>Welcome Back</h1>
+                    <p class="subtitle">Access your Cozy AI account to continue your premium experience</p>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="login-tab">Sign In</button>
+                    <button class="auth-tab" id="signup-tab">Sign Up</button>
+                </div>
+
+                <div class="auth-content">
+                    <!-- Login Form -->
+                    <div class="auth-form active" id="login-form">
+                        <button class="btn btn-google" id="google-login-btn">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        
+                        <div class="divider">
+                            <span>or sign in with email</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-email" class="form-label">Email Address</label>
+                            <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>
+                            <div class="error-message" id="login-email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+                            <div class="error-message" id="login-password-error"></div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="login-button">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="auth-toggle" id="show-signup">Don't have an account? <span>Sign Up</span></button>
+                    </div>
+
+                    <!-- Signup Form -->
+                    <div class="auth-form" id="signup-form">
+                        <button class="btn btn-google" id="google-signup-btn">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        
+                        <div class="divider">
+                            <span>or sign up with email</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-email" class="form-label">Email Address</label>
+                            <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
+                            <div class="error-message" id="signup-email-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-password" class="form-label">Password</label>
+                            <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
+                            <div class="error-message" id="signup-password-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm your password" required>
+                            <div class="error-message" id="signup-confirm-error"></div>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="signup-button">
+                            <span>Create Account</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="auth-toggle" id="show-login">Already have an account? <span>Sign In</span></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="assets/js/firebase.js"></script>
+    <script src="assets/js/auth.js"></script>
+    
+    <script>
+        // Copyright protection script
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyWarning = document.getElementById('copyWarning');
+            
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showCopyWarning(e);
+            });
+            
+            document.addEventListener('selectionchange', function() {
+                const selection = window.getSelection();
+                if (selection.toString().length > 0) {
+                    showCopyWarning({ clientX: 0, clientY: 0 });
+                }
+            });
+            
+            function showCopyWarning(event) {
+                const x = event.clientX || window.innerWidth/2;
+                const y = event.clientY || 100;
+                
+                copyWarning.style.left = x + 'px';
+                copyWarning.style.top = y + 'px';
+                copyWarning.style.opacity = 0;
+                
+                setTimeout(() => {
+                    copyWarning.style.animation = 'none';
+                    void copyWarning.offsetWidth;
+                    copyWarning.style.animation = 'fadeInOut 2s ease-in-out';
+                }, 10);
+            }
+        });
+    </script>
 </body>
 </html>
-

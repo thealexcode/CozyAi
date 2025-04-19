@@ -7,10 +7,6 @@ if (!auth) {
     // You might want to redirect or show an error message
 }
 
-// Rest of your auth.js code...
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const loginTab = document.getElementById('login-tab');
@@ -22,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('login-button');
     const signupButton = document.getElementById('signup-button');
     const googleLoginBtn = document.getElementById('google-login-btn');
+    const googleSignupBtn = document.getElementById('google-signup-btn');
     
     const loginEmail = document.getElementById('login-email');
     const loginPassword = document.getElementById('login-password');
@@ -46,11 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
     loginButton.addEventListener('click', loginUser);
     signupButton.addEventListener('click', signupUser);
     googleLoginBtn.addEventListener('click', loginWithGoogle);
+    googleSignupBtn.addEventListener('click', loginWithGoogle);
     
     // Check auth state
     auth.onAuthStateChanged(user => {
         if (user) {
-            // User is signed in, redirect to chat
             window.location.href = 'chatbot.html';
         }
     });
@@ -72,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function clearAuthErrors() {
-        // Clear all error messages and reset input styles
         const errorMessages = document.querySelectorAll('.error-message');
         errorMessages.forEach(el => {
             el.style.display = 'none';
@@ -98,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         clearAuthErrors();
         
-        // Basic validation
         if (!email) {
             showError('login-email', 'Email is required');
             return;
@@ -114,10 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            // Auth state listener will handle the redirect
         } catch (error) {
             loginButton.disabled = false;
-            loginButton.innerHTML = 'Sign In';
+            loginButton.innerHTML = '<span>Sign In</span><i class="fas fa-arrow-right"></i>';
             
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -146,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         clearAuthErrors();
         
-        // Validation
         if (!email) {
             showError('signup-email', 'Email is required');
             return;
@@ -172,10 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             await auth.createUserWithEmailAndPassword(email, password);
-            // Auth state listener will handle the redirect
         } catch (error) {
             signupButton.disabled = false;
-            signupButton.innerHTML = 'Sign Up';
+            signupButton.innerHTML = '<span>Create Account</span><i class="fas fa-arrow-right"></i>';
             
             switch (error.code) {
                 case 'auth/email-already-in-use':
@@ -195,17 +187,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     async function loginWithGoogle() {
-        googleLoginBtn.disabled = true;
-        googleLoginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Continuing with Google...';
+        const button = this;
+        const originalHTML = button.innerHTML;
+        
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Continuing with Google...';
         
         try {
             await auth.signInWithPopup(provider);
-            // Auth state listener will handle the redirect
         } catch (error) {
-            googleLoginBtn.disabled = false;
-            googleLoginBtn.innerHTML = '<i class="fab fa-google"></i> Continue with Google';
+            button.disabled = false;
+            button.innerHTML = originalHTML;
             console.error("Google login error:", error);
-            alert("Google login failed. Please try again.");
+            
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.style.display = 'block';
+            errorElement.textContent = 'Google login failed. Please try again.';
+            button.parentNode.insertBefore(errorElement, button.nextSibling);
         }
     }
 });
